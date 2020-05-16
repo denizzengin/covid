@@ -95,5 +95,11 @@ const utility = {
     }
     return result;
   },
+  getDataFromDbAll: async function () {
+    const resultOfQuery = await admin.firestore().collection("covid19").get(); //await Promise.all([db.collection("covid19").get()]);
+    let result = {};
+    resultOfQuery.docs.map((doc) => (result[doc.id] = doc.data()));
+    return result;
+  },
 };
 module.exports = utility;
