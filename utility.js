@@ -133,10 +133,13 @@ const utility = {
         if (resultOfParsing["Id"] !== id) {
           return;
         }
+        
+        let data = { "Turkey" : resultOfParsing["Turkey"]} ;
+         
         return db
           .collection("covid19")
           .doc(id.split(".").join(""))
-          .set(resultOfParsing["Turkey"])
+          .set(data)
           .then(() => {
             console.log("added to firebase.");
           });
@@ -153,8 +156,8 @@ const utility = {
         .doc(utility.formattedDateOfToday().split(".").join(""))
         .get();
 
-      if (resultOfQuery && resultOfQuery[0] && resultOfQuery[0].exists) {
-        result = resultOfQuery[0].data();
+      if (resultOfQuery && resultOfQuery.exists) {
+        result = resultOfQuery.data();
       }
     } catch (error) {
       console.log(error);
