@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a covid19 Api.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version": "1.0.5",
+    "title": "Swagger Covid19",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": { "email": "apiteam@swagger.io" },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3002",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "covid19",
+      "description": "Covid19 Daily data",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "allcovid19",
+      "description": "All Covid19 Daily data",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/covid19": {
+      "get": {
+        "tags": [
+          "covid19"
+        ],
+        "summary": "Returns covid19 daily data for Turkey",
+        "description": "Returns covid19 daily data for Turkey",        
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"            
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/allcovid19": {
+      "get": {
+        "tags": [
+          "allcovid19"
+        ],
+        "summary": "Returns covid19 all data for Turkey",
+        "description": "Returns covid19 all data for Turkey",  
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"            
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  }    
+}
+ 

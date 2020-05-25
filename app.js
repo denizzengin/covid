@@ -2,8 +2,11 @@ var utility = require("./utility");
 const express = require("express");
 const schedule = require("node-schedule"); // For scheduler
 const statusCodes = require("./Constants/StatusCodes");
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-api.json');
 var app = express();
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Specify path to routing.
 app.get("/covid19", async function (req, res) {
