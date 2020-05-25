@@ -1,25 +1,31 @@
 var utility = require("./utility");
 const express = require("express");
 const schedule = require("node-schedule"); // For scheduler
+const statusCodes = require("./Constants/StatusCodes");
 
 var app = express();
 
 // Specify path to routing.
 app.get("/covid19", async function (req, res) {
-  // If daily data doesn't exist then go and push data from https://covid19.saglik.gov.tr/
-  let resultOfDb = await Promise.all([utility.getDataFromDb()]);
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*");
+  let resultOfDb = await utility.getDataFromDb();
+
+  // update to match the domain you will make the request from
+  if (!resultOfDb) {
+    resultOfDb = "No data found";
+  }
+
   res.send(JSON.parse(JSON.stringify(resultOfDb, null, " ")));
 });
 
+// All data
 app.get("/allCovid19", async function (req, res) {
-  // If daily data doesn't exist then go and push data from https://covid19.saglik.gov.tr/
   let resultOfDb = await utility.getDataFromDbAll();
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.send(JSON.parse(JSON.stringify(resultOfDb, null, " ")));
 });
 
-// Every 5 minute run for data exists or not.
+// Every 5 minute run and if there is suitable data for today then add to db.
 schedule.scheduleJob("*/59 * * * *", function () {
   utility.saveDataToDb();
 });
